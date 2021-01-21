@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">firstPDF</string>
+    <string name="hint">Type here...</string>
+</resources>
