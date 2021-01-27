@@ -10,3 +10,6 @@ Depending on your device, you may find the files in:
 sdcard>Android>data>**app package name**>Files>PDF_files, 
 storage>self>primary>Android>data>**app package name**>Files>PDF_files, OR
 storage>emulated>Android>data>**app package name**>Files>PDF_files (for emulators, though my emulated devices included the files in the above directories as well)
+
+01/27/2021 Changes:
+You can also now open a seperate activity view the files you saved in a RecyclerView, and delete them via icon click. Clicking on the view itself will display a toast message with the file path.
