@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">firstPDF</string>
     <string name="hint">Type here...</string>
+    <string name="save">Save</string>
+    <string name="view">View</string>
+    <string name="enter_text">Enter Text:</string>
 </resources>

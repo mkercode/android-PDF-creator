@@ -1,15 +1,27 @@
 package com.loopbreakr.firstpdf;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -19,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText myEditText;
     private Button myButton;
+    private Button viewButton;
     String fileName = "";
     String filePath = "";
+    private int STORAGE_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +43,48 @@ public class MainActivity extends AppCompatActivity {
 
         myEditText = findViewById(R.id.editText);
         myButton = findViewById(R.id.button);
+        viewButton = findViewById(R.id.viewFiles);
         filePath = "PDF_files";
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                //Do nothing, we granted the permission already
+        } else {
+            requestStoragePermission();
+        }
 
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Get time and date
-                String currentDate = new SimpleDateFormat("yyyy:MM:dd:HH:mm:ss").format(new Date());
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
 
                 //Append date and tinme to filename
-                fileName = "/PDFFile_" + currentDate + ".pdf";
+                fileName = "/Bad__Behaviors_" + currentDate + ".pdf";
 
                 //Call the createPDF method on the user input
                 createMyPDF(myEditText.getText().toString());
             }
         });
 
+        viewButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myEditText.setText(getExternalFilesDir(filePath).toString());
+                File file = new File(getExternalFilesDir(filePath).toString());
+                File[] fileList = file.listFiles();
+
+                for (int i = 0; i < fileList.length; i++)
+                {
+                    String name = fileList[i].getName();
+                    Log.d("FILE:", fileList[i].getName() + " " + fileList[i].getAbsolutePath());
+                }
+//                Start second activity
+                Intent k = new Intent(MainActivity.this, FileView.class);
+                startActivity(k);
+
+            }
+        }));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -82,5 +122,42 @@ public class MainActivity extends AppCompatActivity {
         }
 
         myPdfDocument.close();
+    }
+
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission needed")
+                    .setMessage("This permission is needed because of this and that")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE)  {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
