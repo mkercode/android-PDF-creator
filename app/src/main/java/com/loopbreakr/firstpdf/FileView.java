@@ -72,7 +72,6 @@ public class FileView extends AppCompatActivity {
 
                 File deletePath = fileList.get(position);
                 deletePath.delete();
-
                 if(deletePath.exists()){
                     getApplicationContext().deleteFile(deletePath.getName());
                 }
