@@ -34,29 +34,23 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
             rowTextView = itemView.findViewById(R.id.fileName);
             rowDeleteImage = itemView.findViewById(R.id.deleteFile);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            listener.onItemClick(position);
-                        }
+            itemView.setOnClickListener(v -> {
+                if(listener != null){
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        listener.onItemClick(position);
                     }
                 }
             });
 
-            rowDeleteImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            listener.onDeleteClick(position);
-                        }
+            rowDeleteImage.setOnClickListener(v -> {
+                if(listener != null){
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        listener.onDeleteClick(position);
                     }
-
                 }
+
             });
 
         }
@@ -70,8 +64,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
     @Override
     public RowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
-        RowViewHolder rvh = new RowViewHolder(v, mListener);
-        return rvh;
+        return new RowViewHolder(v, mListener);
     }
 
     @Override

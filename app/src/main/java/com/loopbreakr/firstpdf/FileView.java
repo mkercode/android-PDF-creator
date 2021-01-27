@@ -31,7 +31,6 @@ public class FileView extends AppCompatActivity {
     }
 
     public void createRows(){
-
         rowItem = new ArrayList<>();
         for (int i = 0; i < fileList.size(); i++) {
             rowItem.add(new RowItem(R.drawable.ic_book,(fileList.get(i).getName().replace("__", " ").replace('_','\n').replace('-','/').replace(".pdf",""))));
@@ -46,8 +45,8 @@ public class FileView extends AppCompatActivity {
     public void reListFiles(){
         File file = new File(getExternalFilesDir(filePath).toString());
         fileList = Arrays.asList(file.listFiles());
-        createRows();
-        buildRecyclerView();
+ //       createRows();
+//        buildRecyclerView();
     }
 
     public void buildRecyclerView() {
