@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText myEditText;
     private Button myButton;
     private Button viewButton;
-    String fileName = "";
-    String filePath = "";
+    private String fileName = "";
+    private final String filePath = "PDF_files";
     private int STORAGE_PERMISSION_CODE = 1;
 
     @Override
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         myEditText = findViewById(R.id.editText);
         myButton = findViewById(R.id.button);
         viewButton = findViewById(R.id.viewFiles);
-        filePath = "PDF_files";
+
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -53,37 +53,31 @@ public class MainActivity extends AppCompatActivity {
             requestStoragePermission();
         }
 
-        myButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Get time and date
-                String currentDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+        myButton.setOnClickListener(v -> {
+            //Get time and date
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
 
-                //Append date and tinme to filename
-                fileName = "/Bad__Behaviors_" + currentDate + ".pdf";
+            //Append date and tinme to filename
+            fileName = "/Bad__Behaviors_" + currentDate + ".pdf";
 
-                //Call the createPDF method on the user input
-                createMyPDF(myEditText.getText().toString());
-            }
+            //Call the createPDF method on the user input
+            createMyPDF(myEditText.getText().toString());
         });
 
-        viewButton.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myEditText.setText(getExternalFilesDir(filePath).toString());
-                File file = new File(getExternalFilesDir(filePath).toString());
-                File[] fileList = file.listFiles();
+        viewButton.setOnClickListener((v -> {
+            myEditText.setText(getExternalFilesDir(filePath).toString());
+            File file = new File(getExternalFilesDir(filePath).toString());
+            File[] fileList = file.listFiles();
 
-                for (int i = 0; i < fileList.length; i++)
-                {
-                    String name = fileList[i].getName();
-                    Log.d("FILE:", fileList[i].getName() + " " + fileList[i].getAbsolutePath());
-                }
-//                Start second activity
-                Intent k = new Intent(MainActivity.this, FileView.class);
-                startActivity(k);
-
+            for (int i = 0; i < fileList.length; i++)
+            {
+                String name = fileList[i].getName();
+                Log.d("FILE:", fileList[i].getName() + " " + fileList[i].getAbsolutePath());
             }
+//                Start second activity
+            Intent k = new Intent(MainActivity.this, FileView.class);
+            startActivity(k);
+
         }));
     }
 

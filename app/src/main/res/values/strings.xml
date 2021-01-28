@@ -4,4 +4,7 @@
     <string name="save">Save</string>
     <string name="view">View</string>
     <string name="enter_text">Enter Text:</string>
+    <string name="send">Send</string>
+    <string name="delete">Delete</string>
+    <string name="file_name">File Name</string>
 </resources>
