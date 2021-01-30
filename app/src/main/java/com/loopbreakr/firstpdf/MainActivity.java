@@ -30,8 +30,6 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private EditText myEditText;
-    private Button myButton;
-    private Button viewButton;
     private String fileName = "";
     private final String filePath = "PDF_files";
     private int STORAGE_PERMISSION_CODE = 1;
@@ -43,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         myEditText = findViewById(R.id.editText);
-        myButton = findViewById(R.id.button);
-        viewButton = findViewById(R.id.viewFiles);
+        Button myButton = findViewById(R.id.button);
+        Button viewButton = findViewById(R.id.viewFiles);
 
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,

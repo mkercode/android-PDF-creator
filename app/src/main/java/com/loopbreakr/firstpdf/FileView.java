@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +23,6 @@ public class FileView extends AppCompatActivity {
     private EditText searchBar;
     private ArrayList<RowItem> rowItem;
     private List<File> fileList;
-    private File fileListArr[];
     private final String filePath = "PDF_files";
     private int menuClicked = 0;
 
@@ -39,11 +35,11 @@ public class FileView extends AppCompatActivity {
         //get the file directory
         File file = new File(getExternalFilesDir(filePath).toString());
         //pass files in the directory to the sortfiles method
-        fileListArr = sortfiles(file.listFiles());
-        //list backwards to show newest entries first
-        Collections.reverse(Arrays.asList(fileListArr));
-        //create array
+        File[] fileListArr = sortFiles(file.listFiles());
+        //Create array and list backwards to show newest entries first
         fileList = Arrays.asList(fileListArr);
+        Collections.reverse(fileList);
+
 
         createRows();
         buildRecyclerView();
@@ -79,41 +75,43 @@ public class FileView extends AppCompatActivity {
         fileAdapter.setOnItemClickListener(new RowAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                //Start the pdf viewer activity if the item is not greyed out
                 if(menuClicked == 0){
                     String name = fileList.get(position).getPath();
                     Intent i = new Intent(FileView.this, PDFViewer.class);
                     i.putExtra("fileData", name);
                     startActivity(i);
-                    //Toast.makeText(FileView.this, "Clicked: " + fileList, Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    //ensures that the user can not initiate the item click if the item is greyed out
                     menuClicked = 0;
-                    String name = fileList.get(position).getPath();
-                    Log.d("PATH: ",  name);
                 }
 
             }
 
             @Override
             public void onDeleteClick(int position) {
+                //remove the entry from the arraylist (removes from view) and path from file system (deletes from device
                 removeItem(position);
-
                 File deletePath = fileList.get(position);
                 deletePath.delete();
                 if (deletePath.exists()) {
                     getApplicationContext().deleteFile(deletePath.getName());
                 }
+                //relist files in arraylist to match the files in the file system
+                //this ensures future deletes while the activity is open will actually remove the file at the position of the array
                 reListFiles();
             }
 
             @Override
             public void onMenuClick(int position) {
+                //ensures that the user can not initiate the item click if the item is greyed out
                 menuClicked = 1;
             }
         });
     }
 
-    public File[] sortfiles(File[] fileArray) {
+    public File[] sortFiles(File[] fileArray) {
         final File[] sortedFileName = fileArray;
         if (sortedFileName != null && sortedFileName.length > 1) {
             Arrays.sort(sortedFileName, new Comparator<File>() {

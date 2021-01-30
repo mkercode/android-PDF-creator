@@ -8,4 +8,5 @@
     <string name="delete">Delete</string>
     <string name="file_name">File Name</string>
     <string name="edit">Edit</string>
+    <string name="search_hint">Search by name or date</string>
 </resources>
