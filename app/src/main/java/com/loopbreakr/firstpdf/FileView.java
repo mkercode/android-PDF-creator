@@ -3,7 +3,6 @@ package com.loopbreakr.firstpdf;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -32,7 +31,6 @@ public class FileView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
 
-
         //get the file directory
         file = new File(getExternalFilesDir(filePath).toString());
         //pass files in the directory to the sortfiles method
@@ -41,11 +39,12 @@ public class FileView extends AppCompatActivity {
         fileList = Arrays.asList(fileListArr);
         Collections.reverse(fileList);
 
-
         createRows();
         buildRecyclerView();
     }
 
+    //create the arraylist that will populate the recyclerview, contains modified filenames and drawables
+    //drawable snot added in xml to allow for future logic to pick the image based on image name
     public void createRows() {
         rowItem = new ArrayList<>();
         for (int i = 0; i < fileList.size(); i++) {
@@ -53,7 +52,7 @@ public class FileView extends AppCompatActivity {
         }
     }
 
-
+    //create recyclerview, bind adapter, and populate with rowItem. This method also contains the onclick behavior for the recyclerview
     public void buildRecyclerView() {
 
         fileRecyclerView = findViewById(R.id.recyclerView);
@@ -74,29 +73,29 @@ public class FileView extends AppCompatActivity {
                     startActivity(i);
                 }
                 else{
-                    //ensures that the user can not initiate the item click if the item is greyed out
+                    //ensures that the user can not initiate the item click if the item is greyed out (implementation in adapter class)
                     menuClicked = 0;
                 }
-
             }
 
             @Override
             public void onDeleteClick(int position) {
                 //remove the entry from the arraylist (removes from view) and path from file system (deletes from device
                 removeItem(position);
-                //relist files in arraylist to match the files in the file system
-                //this ensures future deletes while the activity is open will actually remove the file at the position of the array
+                //relist files in arraylist to match files in the file system. ensures future deletes while the activity is open will actually remove the file at the position of the array
                 reListFiles();
+
             }
 
             @Override
             public void onMenuClick(int position) {
-                //ensures that the user can not initiate the item click if the item is greyed out
+                //ensures that the user can not initiate the item click if the item is greyed out (implementation in adapter class)
                 menuClicked = 1;
             }
         });
     }
 
+    //sort the file array alphanumerically
     public File[] sortFiles(File[] fileArray) {
         if (fileArray != null && fileArray.length > 1) {
             Arrays.sort(fileArray, new Comparator<File>() {
@@ -109,7 +108,7 @@ public class FileView extends AppCompatActivity {
         return fileArray;
     }
 
-
+    //method to remove items from the rowItem arraylist which populates the recyclerview, as well as delete the file from the filesystem
     public void removeItem(int position) {
         rowItem.remove(position);
         fileAdapter.notifyItemRemoved(position);
