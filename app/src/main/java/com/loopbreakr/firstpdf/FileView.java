@@ -44,7 +44,7 @@ public class FileView extends AppCompatActivity {
     }
 
     //create the arraylist that will populate the recyclerview, contains modified filenames and drawables
-    //drawable snot added in xml to allow for future logic to pick the image based on image name
+    //drawables not added in xml to allow for future logic to pick the image based on file name
     public void createRows() {
         rowItem = new ArrayList<>();
         for (int i = 0; i < fileList.size(); i++) {
