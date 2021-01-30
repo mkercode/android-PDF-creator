@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ public class FileView extends AppCompatActivity {
     private RecyclerView.LayoutManager fileLayoutManager;
     private EditText searchBar;
     private ArrayList<RowItem> rowItem;
+    private File file;
     private List<File> fileList;
     private final String filePath = "PDF_files";
     private int menuClicked = 0;
@@ -32,8 +32,9 @@ public class FileView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
 
+
         //get the file directory
-        File file = new File(getExternalFilesDir(filePath).toString());
+        file = new File(getExternalFilesDir(filePath).toString());
         //pass files in the directory to the sortfiles method
         File[] fileListArr = sortFiles(file.listFiles());
         //Create array and list backwards to show newest entries first
@@ -50,16 +51,6 @@ public class FileView extends AppCompatActivity {
         for (int i = 0; i < fileList.size(); i++) {
             rowItem.add(new RowItem(R.drawable.ic_book, (fileList.get(i).getName().replace('_', ' ').replace("&", " ").replace('_', '\n').replace('-', '/').replace(".pdf", ""))));
         }
-    }
-
-    public void removeItem(int position) {
-        rowItem.remove(position);
-        fileAdapter.notifyItemRemoved(position);
-    }
-
-    public void reListFiles() {
-        File file = new File(getExternalFilesDir(filePath).toString());
-        fileList = Arrays.asList(file.listFiles());
     }
 
 
@@ -93,11 +84,6 @@ public class FileView extends AppCompatActivity {
             public void onDeleteClick(int position) {
                 //remove the entry from the arraylist (removes from view) and path from file system (deletes from device
                 removeItem(position);
-                File deletePath = fileList.get(position);
-                deletePath.delete();
-                if (deletePath.exists()) {
-                    getApplicationContext().deleteFile(deletePath.getName());
-                }
                 //relist files in arraylist to match the files in the file system
                 //this ensures future deletes while the activity is open will actually remove the file at the position of the array
                 reListFiles();
@@ -112,9 +98,8 @@ public class FileView extends AppCompatActivity {
     }
 
     public File[] sortFiles(File[] fileArray) {
-        final File[] sortedFileName = fileArray;
-        if (sortedFileName != null && sortedFileName.length > 1) {
-            Arrays.sort(sortedFileName, new Comparator<File>() {
+        if (fileArray != null && fileArray.length > 1) {
+            Arrays.sort(fileArray, new Comparator<File>() {
                 @Override
                 public int compare(File object1, File object2) {
                     return object1.getName().compareTo(object2.getName());
@@ -123,5 +108,23 @@ public class FileView extends AppCompatActivity {
         }
         return fileArray;
     }
+
+
+    public void removeItem(int position) {
+        rowItem.remove(position);
+        fileAdapter.notifyItemRemoved(position);
+        File deletePath = fileList.get(position);
+        deletePath.delete();
+        if (deletePath.exists()) {
+            getApplicationContext().deleteFile(deletePath.getName());
+        }
+    }
+
+    //method to refresh the file list so the arraylist of files on the device indices can match that of the recyclerviews
+    public void reListFiles() {
+        file = new File(getExternalFilesDir(filePath).toString());
+        fileList = Arrays.asList(file.listFiles());
+    }
+
 }
 

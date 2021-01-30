@@ -115,6 +115,4 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         return rowList.size();
     }
 
-
-
 }
