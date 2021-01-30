@@ -13,8 +13,14 @@ import java.util.ArrayList;
 
 public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
 
-    private ArrayList<RowItem> mRowList;
+    private ArrayList<RowItem> rowList;
+ //   private ArrayList<RowItem> rowListfull;
     private OnItemClickListener mListener;
+
+    public RowAdapter(ArrayList<RowItem> rowList){
+        this.rowList = rowList;
+ //       rowListfull = new ArrayList<>(rowList);
+    }
 
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -33,6 +39,8 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         public Button rowDeleteButton;
         public Button rowSendButton;
         public ImageView rowMenuIcon;
+
+
 
         public RowViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -83,9 +91,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         }
     }
 
-    public RowAdapter(ArrayList<RowItem> rowList){
-        mRowList = rowList;
-    }
+
 
     @NonNull
     @Override
@@ -96,7 +102,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RowViewHolder holder, int position) {
-        RowItem currentItem = mRowList.get(position);
+        RowItem currentItem = rowList.get(position);
 
         holder.rowImageView.setImageResource(currentItem.getImageResource());
         holder.rowTextView.setText(currentItem.getFileName());
@@ -106,7 +112,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mRowList.size();
+        return rowList.size();
     }
 
 
