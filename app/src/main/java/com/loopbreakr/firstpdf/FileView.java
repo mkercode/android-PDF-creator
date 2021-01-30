@@ -124,6 +124,5 @@ public class FileView extends AppCompatActivity {
         file = new File(getExternalFilesDir(filePath).toString());
         fileList = Arrays.asList(file.listFiles());
     }
-
 }
 
