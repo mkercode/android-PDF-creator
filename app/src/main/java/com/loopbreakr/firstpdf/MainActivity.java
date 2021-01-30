@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private String fileName = "";
     private final String filePath = "PDF_files";
     private int STORAGE_PERMISSION_CODE = 1;
+    private boolean isSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
         myButton.setOnClickListener(v -> {
             //Get time and date
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd&HH:mm:ss").format(new Date());
 
             //Append date and tinme to filename
-            fileName = "/Bad__Behaviors_" + currentDate + ".pdf";
+            fileName = "/Abdile&Name " + currentDate + ".pdf";
 
             //Call the createPDF method on the user input
             createMyPDF(myEditText.getText().toString());

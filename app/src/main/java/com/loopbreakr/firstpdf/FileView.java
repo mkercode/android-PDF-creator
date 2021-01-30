@@ -3,13 +3,19 @@ package com.loopbreakr.firstpdf;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class FileView extends AppCompatActivity {
@@ -17,26 +23,36 @@ public class FileView extends AppCompatActivity {
     private RecyclerView fileRecyclerView;
     private RowAdapter fileAdapter;
     private RecyclerView.LayoutManager fileLayoutManager;
+    private EditText searchBar;
     private ArrayList<RowItem> rowItem;
     private List<File> fileList;
+    private File fileListArr[];
     private final String filePath = "PDF_files";
-    private String fileData = "";
-    private boolean isClicked;
+    private int menuClicked = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
+
+        //get the file directory
         File file = new File(getExternalFilesDir(filePath).toString());
-        fileList = Arrays.asList(file.listFiles());
+        //pass files in the directory to the sortfiles method
+        fileListArr = sortfiles(file.listFiles());
+        //list backwards to show newest entries first
+        Collections.reverse(Arrays.asList(fileListArr));
+        //create array
+        fileList = Arrays.asList(fileListArr);
+
         createRows();
         buildRecyclerView();
     }
 
-    public void createRows(){
+    public void createRows() {
         rowItem = new ArrayList<>();
         for (int i = 0; i < fileList.size(); i++) {
-            rowItem.add(new RowItem(R.drawable.ic_book,(fileList.get(i).getName().replace("__", " ").replace('_','\n').replace('-','/').replace(".pdf",""))));
+            rowItem.add(new RowItem(R.drawable.ic_book, (fileList.get(i).getName().replace('_', ' ').replace("&", " ").replace('_', '\n').replace('-', '/').replace(".pdf", ""))));
         }
     }
 
@@ -45,18 +61,11 @@ public class FileView extends AppCompatActivity {
         fileAdapter.notifyItemRemoved(position);
     }
 
-    public void reListFiles(){
+    public void reListFiles() {
         File file = new File(getExternalFilesDir(filePath).toString());
         fileList = Arrays.asList(file.listFiles());
     }
 
-    public void showMenu(){
-
-
-    }
-    public void hideMenu(){
-
-    }
 
     public void buildRecyclerView() {
 
@@ -70,16 +79,19 @@ public class FileView extends AppCompatActivity {
         fileAdapter.setOnItemClickListener(new RowAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                fileData = fileList.get(position).toString();
-                Toast.makeText(FileView.this,"Clicked: " + fileData , Toast.LENGTH_SHORT).show();
-//                if(isClicked == true){
-//                    Button rowDeleteButton = fileRecyclerView.findViewById(R.id.deleteFile);
-//                    Button rowSendButton = fileRecyclerView.findViewById(R.id.sendButton);
-//                    Button rowMenuButton = fileRecyclerView.findViewById(R.id.menuButton);
-//                    rowDeleteButton.setVisibility(View.INVISIBLE);
-//                    rowSendButton.setVisibility(View.INVISIBLE);
-//                    rowMenuButton.setVisibility(View.VISIBLE);
-//                }
+                if(menuClicked == 0){
+                    String name = fileList.get(position).getPath();
+                    Intent i = new Intent(FileView.this, PDFViewer.class);
+                    i.putExtra("fileData", name);
+                    startActivity(i);
+                    //Toast.makeText(FileView.this, "Clicked: " + fileList, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    menuClicked = 0;
+                    String name = fileList.get(position).getPath();
+                    Log.d("PATH: ",  name);
+                }
+
             }
 
             @Override
@@ -88,7 +100,7 @@ public class FileView extends AppCompatActivity {
 
                 File deletePath = fileList.get(position);
                 deletePath.delete();
-                if(deletePath.exists()){
+                if (deletePath.exists()) {
                     getApplicationContext().deleteFile(deletePath.getName());
                 }
                 reListFiles();
@@ -96,16 +108,22 @@ public class FileView extends AppCompatActivity {
 
             @Override
             public void onMenuClick(int position) {
-//                isClicked = true;
-//                Button rowDeleteButton = fileRecyclerView.findViewById(R.id.deleteFile);
-//                Button rowSendButton = fileRecyclerView.findViewById(R.id.sendButton);
-//                Button rowMenuButton = fileRecyclerView.findViewById(R.id.menuButton);
-//                rowDeleteButton.setVisibility(View.VISIBLE);
-//                rowSendButton.setVisibility(View.VISIBLE);
-//                rowMenuButton.setVisibility(View.GONE);
-
+                menuClicked = 1;
             }
         });
+    }
+
+    public File[] sortfiles(File[] fileArray) {
+        final File[] sortedFileName = fileArray;
+        if (sortedFileName != null && sortedFileName.length > 1) {
+            Arrays.sort(sortedFileName, new Comparator<File>() {
+                @Override
+                public int compare(File object1, File object2) {
+                    return object1.getName().compareTo(object2.getName());
+                }
+            });
+        }
+        return fileArray;
     }
 }
 
