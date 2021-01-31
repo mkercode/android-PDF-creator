@@ -1,15 +1,19 @@
 package com.loopbreakr.firstpdf;
 
+import java.io.File;
+
 public class RowItem {
 
     private String fileName;
+    private File fileData;
 
-    public RowItem(String stringInput) {
-        this.fileName = stringInput;
+    public RowItem(String fileName, File fileLocation) {
+        this.fileName = fileName;
+        this.fileData = fileLocation;
     }
-
 
     public String getFileName() {
         return fileName;
     }
+    public File getFileData() { return  fileData; };
 }

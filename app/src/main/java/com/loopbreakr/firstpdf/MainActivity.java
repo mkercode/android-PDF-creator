@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             String currentDate = new SimpleDateFormat("yyyy-MM-dd&HH:mm:ss").format(new Date());
 
             //Append date and tinme to filename
-            fileName = "/Abdile&Name " + currentDate + ".pdf";
+            fileName = "/Abdile_Name__" + currentDate + ".pdf";
 
             //Call the createPDF method on the user input
             createMyPDF(myEditText.getText().toString());

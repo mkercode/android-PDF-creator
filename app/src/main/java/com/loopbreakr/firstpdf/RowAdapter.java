@@ -39,7 +39,6 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         public ImageView rowMenuIcon;
 
 
-
         public RowViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             //find views in row XML
@@ -49,9 +48,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
             rowSendButton = itemView.findViewById(R.id.editButton);
             rowMenuIcon = itemView.findViewById(R.id.menuIcon);
 
-
             //handle adapters onclick behavior of the recyclerview. Using to handle visual changes in the XML as well
-
             itemView.setOnClickListener(v -> {
                 if(listener != null){
                     int position = getAdapterPosition();
@@ -95,10 +92,8 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RowViewHolder holder, int position) {
-        RowItem currentItem = rowList.get(position);
-        holder.rowTextView.setText(currentItem.getFileName());
-
-
+        String currentItem = rowList.get(position).getFileName();
+        holder.rowTextView.setText(currentItem);
     }
 
     //return the # of items in the recyclerview
