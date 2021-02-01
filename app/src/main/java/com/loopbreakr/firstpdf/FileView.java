@@ -3,7 +3,12 @@ package com.loopbreakr.firstpdf;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +36,6 @@ public class FileView extends AppCompatActivity {
 
         createRows();
         buildRecyclerView();
-
     }
 
     public void createRows(){
@@ -55,8 +59,7 @@ public class FileView extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 selectedFileData = rowItem.get(position).getFileData();
-
-                Toast.makeText(FileView.this,"Clicked: " + selectedFileData.getPath() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(FileView.this, "Clicked: " + selectedFileData.getPath(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -81,7 +84,5 @@ public class FileView extends AppCompatActivity {
         rowItem.remove(position);
         fileAdapter.notifyItemRemoved(position);
     }
-
-
 }
 
