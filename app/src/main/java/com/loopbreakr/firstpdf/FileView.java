@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FileView extends AppCompatActivity {
 
@@ -18,18 +16,14 @@ public class FileView extends AppCompatActivity {
     private ArrayList<RowItem> rowItem;
     private File[] files;
     private File tempFile;
-    private List<File> fileList;
-    private final String filePath = "PDF_files";
-    private File fileData;
-
+    private File selectedFileData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
-        File file = new File(getExternalFilesDir(filePath).toString());
+        File file = new File(getExternalFilesDir("PDF_files").toString());
         files = file.listFiles();
-        fileList = Arrays.asList(files);
 
         createRows();
         buildRecyclerView();
@@ -56,16 +50,17 @@ public class FileView extends AppCompatActivity {
         fileAdapter.setOnItemClickListener(new RowAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                fileData = rowItem.get(position).getFileData();
-                Toast.makeText(FileView.this,"Clicked: " + fileData.getPath() , Toast.LENGTH_SHORT).show();
+                selectedFileData = rowItem.get(position).getFileData();
+                Toast.makeText(FileView.this,"Clicked: " + selectedFileData.getPath() , Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDeleteClick(int position) {
 
-                fileData = rowItem.get(position).getFileData();
-                fileData.delete();
-                Toast.makeText(FileView.this,"Deleted: " + fileData.getPath() , Toast.LENGTH_SHORT).show();
+                selectedFileData = rowItem.get(position).getFileData();
+                selectedFileData.delete();
+
+                Toast.makeText(FileView.this,"Deleted: " + selectedFileData.getPath() , Toast.LENGTH_SHORT).show();
 
                 removeItem(position);
             }

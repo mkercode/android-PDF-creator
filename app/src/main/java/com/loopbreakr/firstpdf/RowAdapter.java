@@ -38,7 +38,6 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         public Button rowSendButton;
         public ImageView rowMenuIcon;
 
-
         public RowViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             //find views in row XML
