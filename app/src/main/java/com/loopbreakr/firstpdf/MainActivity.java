@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
         myButton.setOnClickListener(v -> {
             //Get time and date
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd&HH:mm:ss").format(new Date());
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd__HH:mm:ss").format(new Date());
 
             //Append date and tinme to filename
-            fileName = "/Abdile_Name__" + currentDate + ".pdf";
+            fileName = "/File_Name__" + currentDate + ".pdf";
 
             //Call the createPDF method on the user input
             createMyPDF(myEditText.getText().toString());

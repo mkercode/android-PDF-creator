@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class FileView extends AppCompatActivity {
 
@@ -22,19 +24,21 @@ public class FileView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
+        //Create a array of files in the app folder named PDF_files sorted in descending order
         File file = new File(getExternalFilesDir("PDF_files").toString());
         files = file.listFiles();
+        Arrays.sort(files, Collections.reverseOrder());
 
         createRows();
         buildRecyclerView();
+
     }
 
     public void createRows(){
         rowItem = new ArrayList<>();
-
         for (int i = 0; i < files.length; i++) {
             tempFile = files[i];
-            rowItem.add(new RowItem(tempFile.getName().replace("__", " ").replace('_','\n').replace('-','/').replace(".pdf",""), tempFile));
+            rowItem.add(new RowItem(tempFile.getName().replace("__", "\n").replace('_',' ').replace('-','/').replace(".pdf",""), tempFile));
         }
     }
 
@@ -51,6 +55,7 @@ public class FileView extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 selectedFileData = rowItem.get(position).getFileData();
+
                 Toast.makeText(FileView.this,"Clicked: " + selectedFileData.getPath() , Toast.LENGTH_SHORT).show();
             }
 
