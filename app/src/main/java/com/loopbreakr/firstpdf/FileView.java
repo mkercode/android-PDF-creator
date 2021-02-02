@@ -1,15 +1,14 @@
 package com.loopbreakr.firstpdf;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,21 +23,27 @@ public class FileView extends AppCompatActivity {
     private File[] files;
     private File tempFile;
     private File selectedFileData;
+    private MenuItem searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
-        //Create a array of files in the app folder named PDF_files sorted in descending order
-        File file = new File(getExternalFilesDir("PDF_files").toString());
-        files = file.listFiles();
-        Arrays.sort(files, Collections.reverseOrder());
+        //create the toolbar view from the toolbar in the xml
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        setSupportActionBar(myToolbar);
 
         createRows();
         buildRecyclerView();
     }
 
     public void createRows(){
+        //Create a array of files in the app folder named PDF_files sorted in descending order
+        File file = new File(getExternalFilesDir("PDF_files").toString());
+        files = file.listFiles();
+        Arrays.sort(files, Collections.reverseOrder());
+
+        //Populate RowItem Arraylist with the file names and paths
         rowItem = new ArrayList<>();
         for (int i = 0; i < files.length; i++) {
             tempFile = files[i];
@@ -58,31 +63,68 @@ public class FileView extends AppCompatActivity {
         fileAdapter.setOnItemClickListener(new RowAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                selectedFileData = rowItem.get(position).getFileData();
-                Toast.makeText(FileView.this, "Clicked: " + selectedFileData.getPath(), Toast.LENGTH_SHORT).show();
+
+                String selectedFilePath = rowItem.get(position).getFileData().getPath();
+                openPDF(selectedFilePath);
             }
 
             @Override
             public void onDeleteClick(int position) {
-
+                //delete actual file from device
                 selectedFileData = rowItem.get(position).getFileData();
                 selectedFileData.delete();
-
-                Toast.makeText(FileView.this,"Deleted: " + selectedFileData.getPath() , Toast.LENGTH_SHORT).show();
-
+                //delete from recyclerview
                 removeItem(position);
-            }
-
-            @Override
-            public void onMenuClick(int position) {
-
             }
         });
     }
 
+    //Method to remove row from recyclerview
     public void removeItem(int position) {
-        rowItem.remove(position);
-        fileAdapter.notifyItemRemoved(position);
+        //This code works fine without searchview:
+//        rowItem.remove(position);
+//        fileAdapter.notifyDataSetChanged();
+
+        //MESSY - will optimize. Right now we are recreating the rowList from the files on the device, and passing it to the adapter
+        createRows();
+        fileAdapter = new RowAdapter(rowItem);
+        fileRecyclerView.setAdapter(fileAdapter);
+
+        searchBar.collapseActionView();
+    }
+
+    //Method to send file data to pdf viewer class
+    public void openPDF(String path){
+        Intent intent = new Intent(this, PDFViewer.class);
+        intent.putExtra("fileData", path);
+        startActivity(intent);
+    }
+
+    ////////////FILTERING METHODS
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //get the searchbar
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        searchBar = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchBar.getActionView();
+
+        //handle it's behavior
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            //for submitted data (not used in this application)
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            //for live data updates when text is typed into searchbar
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 }
 

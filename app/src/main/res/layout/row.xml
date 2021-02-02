@@ -1,78 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingRight="2dp">
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_width="match_parent"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="4dp">
 
         <ImageView
             android:id="@+id/fileImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:padding="5dp" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_documents"
+            android:contentDescription="@string/document_icon" />
 
         <TextView
             android:id="@+id/fileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toLeftOf="@id/editButton"
-            android:layout_toRightOf="@id/fileImage"
-            android:paddingRight="3dp"
+            android:layout_toStartOf="@id/deleteIcon"
+            android:layout_toEndOf="@id/fileImage"
             android:text="@string/file_name"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/deleteFile"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="@string/delete"
-            android:textColor="#F66868"
-            android:visibility="invisible"
-            app:backgroundTint="@android:color/transparent" />
-
-        <Button
-            android:id="@+id/editButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/deleteFile"
-            android:layout_alignStart="@+id/deleteFile"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:background="#FFFFFF"
-            android:text="@string/edit"
-            android:textColor="#85C388"
-            android:visibility="invisible"
-            app:backgroundTint="#FFFFFF" />
-
+            android:textColor="#316E33"
+            android:textSize="20sp"
+            android:padding="5dp"
+            app:layout_constraintStart_toEndOf="@+id/fileImage"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/menuIcon"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/editButton"
+            android:id="@+id/deleteIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="0dp"
-            android:visibility="visible"
-            app:srcCompat="@drawable/ic_doticon" />
+            android:layout_alignParentEnd="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete"
+            android:contentDescription="@string/delete_icon" />
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

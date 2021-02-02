@@ -9,4 +9,8 @@
     <string name="file_name">File Name</string>
     <string name="edit">Edit</string>
     <string name="search_hint">Search by name or date</string>
+    <string name="delete_icon">DELETE ICON</string>
+    <string name="pdf_icon">PDF ICON</string>
+    <string name="search">Search</string>
+    <string name="document_icon">DOCUMENT ICON</string>
 </resources>
