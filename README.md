@@ -9,7 +9,17 @@ As this example implements scoped storage, if the app is uninstalled the files w
 Depending on your device, you may find the files in:
 sdcard>Android>data>**app package name**>Files>PDF_files, 
 storage>self>primary>Android>data>**app package name**>Files>PDF_files, OR
-storage>emulated>Android>data>**app package name**>Files>PDF_files (for emulators, though my emulated devices included the files in the above directories as well)
+storage>emulated>Android>data>**app package name**>Files>PDF_files 
 
 01/27/2021 Changes:
-You can also now open a seperate activity view the files you saved in a RecyclerView, and delete them via icon click. Clicking on the view itself will display a toast message with the file path.
+-File viewer functionality. You can view the names of the files you created in a seperate activity
+-Added ability to delete files in the file viewer from the phones storage
+
+02/02/2021 Changes:
+- Added PDF viewer from barteksc, the application can view PDF files created in a seperate activity
+- Visual changes
+
+Future changes will involve:
+-Ability to edit PDF (or rather, create a new file with the parsed text from the PDF with the same name) with itext
+-Fragments instead of seperate activities
+-Modern functionality changes such as view binding and naviagational component
