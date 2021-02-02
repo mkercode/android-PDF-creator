@@ -77,7 +77,6 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> i
 
     @Override
     public void onBindViewHolder(@NonNull RowViewHolder holder, int position) {
-// RowItem currentRow = rowList.get(position);
         String currentItem = rowList.get(position).getFileName();
         holder.rowTextView.setText(currentItem);
     }
