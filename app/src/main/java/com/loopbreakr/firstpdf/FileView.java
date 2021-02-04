@@ -30,7 +30,7 @@ public class FileView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
         //create the toolbar view from the toolbar in the xml
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        Toolbar myToolbar = findViewById(R.id.search_toolbar);
         setSupportActionBar(myToolbar);
 
         createRows();
@@ -104,7 +104,7 @@ public class FileView extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //get the searchbar
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         searchBar = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchBar.getActionView();
 

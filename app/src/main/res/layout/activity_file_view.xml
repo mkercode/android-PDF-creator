@@ -16,7 +16,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:collapseIcon="@drawable/ic_backarrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

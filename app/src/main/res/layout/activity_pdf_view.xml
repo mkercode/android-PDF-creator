@@ -6,33 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".PDFViewer">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topMenu"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/PDFToolbar"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="55dp"
         android:background="@drawable/translucent_gradient_topdown"
+        android:elevation="4dp"
+        android:theme="@style/Theme.MaterialComponents.NoActionBar"
+        app:popupTheme="@style/PopupMenuStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/back_toFiles"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_backarrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/option_dots"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_doticon_white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
@@ -41,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottomDecoration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topMenu" />
+        app:layout_constraintTop_toBottomOf="@+id/PDFToolbar" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
