@@ -3,8 +3,8 @@
     <style name="Theme.FirstPDF" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="android:windowDisablePreview">true</item>
-        <item name="colorPrimary">#40E690</item>
-        <item name="colorPrimaryVariant">#40E690</item>
+        <item name="colorPrimary">@color/seafoam</item>
+        <item name="colorPrimaryVariant">@color/seafoam</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

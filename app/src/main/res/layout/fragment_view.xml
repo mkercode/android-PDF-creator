@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PDFViewer">
+    tools:context=".ViewFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topMenu"
+    <RelativeLayout
+        android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@drawable/translucent_gradient_topdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -20,38 +19,27 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_alignParentStart="true"
-            android:src="@drawable/ic_backarrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_backarrow" />
 
         <ImageView
             android:id="@+id/option_dots"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_doticon_white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_doticon_white" />
+
+    </RelativeLayout>
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomDecoration"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topMenu" />
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/bottomDecoration"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@drawable/translucent_gradient_bottomup"
-        app:layout_constraintTop_toBottomOf="@+id/pdfView"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
