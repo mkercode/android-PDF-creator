@@ -13,4 +13,6 @@
     <string name="pdf_icon">PDF ICON</string>
     <string name="search">Search</string>
     <string name="document_icon">DOCUMENT ICON</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
