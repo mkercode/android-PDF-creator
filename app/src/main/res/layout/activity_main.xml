@@ -11,7 +11,7 @@
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/grey"
+        android:textColor="@color/greyish"
         android:autofillHints=""
         android:ems="10"
         android:gravity="start|top"
@@ -46,7 +46,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:textColor="@color/grey"
+        android:textColor="@color/greyish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter_text"
