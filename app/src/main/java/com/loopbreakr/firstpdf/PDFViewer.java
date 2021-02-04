@@ -29,8 +29,10 @@ public class PDFViewer extends AppCompatActivity {
         Intent intent = getIntent();
         filePath = intent.getExtras().getString("fileData");
 
+        //display the toolbar
         Toolbar myToolbar = findViewById(R.id.PDFToolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         //show PDF in Viewer
