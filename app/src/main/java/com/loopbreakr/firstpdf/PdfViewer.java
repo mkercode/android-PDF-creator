@@ -13,7 +13,7 @@ import com.loopbreakr.firstpdf.FileViewer.FileView;
 
 import java.io.File;
 
-public class PDFViewer extends AppCompatActivity {
+public class PdfViewer extends AppCompatActivity {
 
     String filePath;
     PDFView pdfView;
@@ -60,7 +60,7 @@ public class PDFViewer extends AppCompatActivity {
     }
 
     public void exitActiviity(){
-        Intent openFileViewer = new Intent(PDFViewer.this, FileView.class);
+        Intent openFileViewer = new Intent(PdfViewer.this, FileView.class);
         startActivity(openFileViewer);
     }
 

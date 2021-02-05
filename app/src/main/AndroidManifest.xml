@@ -17,7 +17,7 @@
         <activity android:name=".PdfEditor"
             android:noHistory="true">
         </activity>
-        <activity android:name=".PDFViewer"
+        <activity android:name=".PdfViewer"
             android:noHistory="true"/>
         <activity
             android:name=".FileViewer.FileView"

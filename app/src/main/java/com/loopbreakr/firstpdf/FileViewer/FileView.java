@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.loopbreakr.firstpdf.PDFViewer;
+import com.loopbreakr.firstpdf.PdfViewer;
 import com.loopbreakr.firstpdf.R;
 
 import java.io.File;
@@ -100,7 +100,7 @@ public class FileView extends AppCompatActivity {
 
     //Method to send file data to pdf viewer class
     public void openPDF(String path){
-        Intent intent = new Intent(this, PDFViewer.class);
+        Intent intent = new Intent(this, PdfViewer.class);
         intent.putExtra("fileData", path);
         startActivity(intent);
     }

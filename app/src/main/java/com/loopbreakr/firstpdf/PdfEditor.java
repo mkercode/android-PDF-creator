@@ -2,7 +2,6 @@ package com.loopbreakr.firstpdf;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
@@ -118,13 +116,12 @@ public class PdfEditor extends AppCompatActivity {
     }
 
     private void exitActivity(){
-        Intent intent = new Intent(this, PDFViewer.class);
+        Intent intent = new Intent(this, PdfViewer.class);
         intent.putExtra("fileData", filePath);
         startActivity(intent);
     }
 
     public void recreateMyPDF(String myString){
-
             //Create the pdf page
             PdfDocument myPdfDocument = new PdfDocument();
             PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(300,600,1).create();
