@@ -1,4 +1,4 @@
-package com.loopbreakr.firstpdf;
+package com.loopbreakr.firstpdf.FileViewer;
 
 import java.io.File;
 
@@ -15,5 +15,5 @@ public class RowItem {
     public String getFileName() {
         return fileName;
     }
-    public File getFileData() { return  fileData; };
+    public File getFileData() { return  fileData; }
 }

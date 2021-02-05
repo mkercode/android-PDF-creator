@@ -9,6 +9,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.loopbreakr.firstpdf.FileViewer.FileView;
+
 import java.io.File;
 
 public class PDFViewer extends AppCompatActivity {

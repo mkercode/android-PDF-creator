@@ -19,12 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.loopbreakr.firstpdf.FileViewer.FileView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity {
 
     private EditText myEditText;
     private Button saveButton;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissions() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
+        if (ContextCompat.checkSelfPermission(HomeScreen.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             //Do nothing, we granted the permission already
         } else {
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewButton.setOnClickListener((v -> {
 //                Start second activity
-            Intent openFileViewer = new Intent(MainActivity.this, FileView.class);
+            Intent openFileViewer = new Intent(HomeScreen.this, FileView.class);
             startActivity(openFileViewer);
         }));
     }
@@ -101,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
         File myExternalFile = new File(getExternalFilesDir(filePath), fileName);
         try {
             myPdfDocument.writeTo(new FileOutputStream(myExternalFile));
-            Toast.makeText(MainActivity.this,"File saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeScreen.this,"File saved!", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
             //If file is not saved, print stack trace, clear edittext, and display toast message
             e.printStackTrace();
             myEditText.setText("");
-            Toast.makeText(MainActivity.this,"File not saved... Possible permissions error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeScreen.this,"File not saved... Possible permissions error", Toast.LENGTH_SHORT).show();
         }
         myPdfDocument.close();
     }
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this,
+                            ActivityCompat.requestPermissions(HomeScreen.this,
                                     new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                         }
                     })

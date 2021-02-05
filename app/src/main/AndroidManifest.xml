@@ -20,9 +20,9 @@
         <activity android:name=".PDFViewer"
             android:noHistory="true"/>
         <activity
-            android:name=".FileView"
+            android:name=".FileViewer.FileView"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

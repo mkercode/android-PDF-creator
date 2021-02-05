@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/green_gradient"
     android:editTextColor="@android:color/white"
-    tools:context="com.loopbreakr.firstpdf.FileView"
+    tools:context="com.loopbreakr.firstpdf.FileViewer.FileView"
     android:focusableInTouchMode="true">
 
     <androidx.appcompat.widget.Toolbar

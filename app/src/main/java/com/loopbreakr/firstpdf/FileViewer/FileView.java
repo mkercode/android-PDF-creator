@@ -1,4 +1,4 @@
-package com.loopbreakr.firstpdf;
+package com.loopbreakr.firstpdf.FileViewer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.loopbreakr.firstpdf.PDFViewer;
+import com.loopbreakr.firstpdf.R;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
