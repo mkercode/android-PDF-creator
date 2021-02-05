@@ -26,13 +26,18 @@ public class PDFViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_view);
-        pdfView = findViewById(R.id.pdfView);
 
-        //Get the pdf data from the previous activity
+        getData();
+        showSearchBar();
+        showPDF();
+    }
+
+    private void getData() {
         Intent intent = getIntent();
         filePath = intent.getExtras().getString("fileData");
+    }
 
-        //display the toolbar
+    private void showSearchBar() {
         Toolbar searchBar = findViewById(R.id.PDFToolbar);
         setSupportActionBar(searchBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -42,11 +47,17 @@ public class PDFViewer extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
-
-        //show PDF in Viewer
+    private void showPDF() {
+        pdfView = findViewById(R.id.pdfView);
         pdfFile = new File(filePath);
         pdfView.fromFile(pdfFile).load();
+    }
+
+    public void switchActicity(){
+        Intent openFileViewer = new Intent(PDFViewer.this, FileView.class);
+        startActivity(openFileViewer);
     }
 
     @Override
@@ -68,10 +79,5 @@ public class PDFViewer extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void switchActicity(){
-        Intent openFileViewer = new Intent(PDFViewer.this, FileView.class);
-        startActivity(openFileViewer);
     }
 }

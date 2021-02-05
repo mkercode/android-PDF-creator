@@ -44,13 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Button myButton = findViewById(R.id.button);
         Button viewButton = findViewById(R.id.viewFiles);
 
-
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                //Do nothing, we granted the permission already
-        } else {
-            requestStoragePermission();
-        }
+        checkPermissions();
 
         myButton.setOnClickListener(v -> {
             //Get time and date
@@ -78,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(openFileViewer);
 
         }));
+    }
+
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            //Do nothing, we granted the permission already
+        } else {
+            requestStoragePermission();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -113,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             myEditText.setText("");
             Toast.makeText(MainActivity.this,"File not saved... Possible permissions error", Toast.LENGTH_SHORT).show();
         }
-
         myPdfDocument.close();
     }
 
