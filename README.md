@@ -20,7 +20,7 @@ storage>emulated>Android>data>**app package name**>Files>PDF_files
 - Visual changes
 
 02/05/2021 Changes:
--Added editor functionality (thanks to the PDF text parses by iText)
+-Added editor functionality (thanks to the PDF text parser by iText)
 -Added toolbars
 -Visual changes and cute icons
 
