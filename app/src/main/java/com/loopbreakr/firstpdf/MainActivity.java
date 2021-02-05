@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void setListeners() {
         saveButton.setOnClickListener(v -> {
             //Get time and date
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd__HH:mm:ss").format(new Date());
+            currentDate = new SimpleDateFormat("yyyy-MM-dd__HH:mm:ss").format(new Date());
             //Append date and tinme to filename
             fileName = "/File_Name__" + currentDate + ".pdf";
             //Call the createPDF method on the user input

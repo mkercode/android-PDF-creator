@@ -114,9 +114,16 @@ public class PdfEditor extends AppCompatActivity {
 
         fileName = pdfFile.getName();
         recreateMyPDF(pdfEditText.getText().toString());
+        exitActivity();
     }
 
-        public void recreateMyPDF(String myString){
+    private void exitActivity(){
+        Intent intent = new Intent(this, PDFViewer.class);
+        intent.putExtra("fileData", filePath);
+        startActivity(intent);
+    }
+
+    public void recreateMyPDF(String myString){
 
             //Create the pdf page
             PdfDocument myPdfDocument = new PdfDocument();
