@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("FILE:", fileList[i].getName() + " " + fileList[i].getAbsolutePath());
             }
 //                Start second activity
-            Intent k = new Intent(MainActivity.this, FileView.class);
-            startActivity(k);
+            Intent openFileViewer = new Intent(MainActivity.this, FileView.class);
+            startActivity(openFileViewer);
 
         }));
     }

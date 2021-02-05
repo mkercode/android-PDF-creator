@@ -12,12 +12,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:noHistory="true"
         android:theme="@style/Theme.FirstPDF">
-        <activity android:name=".PdfEditor"></activity>
-        <activity android:name=".PDFViewer" />
+
+        <activity android:name=".PdfEditor"
+            android:noHistory="true">
+        </activity>
+        <activity android:name=".PDFViewer"
+            android:noHistory="true"/>
         <activity
             android:name=".FileView"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:noHistory="true"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
