@@ -6,52 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".PdfEditor">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topMenu"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editor_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="55dp"
         android:background="@drawable/translucent_gradient_topdown"
+        android:elevation="4dp"
+        android:theme="@style/Theme.MaterialComponents.NoActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/back_toFiles"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_backarrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/option_dots"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_checkmark"
+        <EditText
+            android:id="@+id/pdf_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            android:text="@string/file_error_message"
+            app:layout_constraintBottom_toTopOf="@+id/bottomDecoration"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <EditText
-        android:id="@+id/pdf_edit_text"
-        android:inputType="textMultiLine"
-        android:layout_width="match_parent"
-        android:text="PDF TEXT GOES HERE"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomDecoration"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topMenu" />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editor_toolbar"
+            android:autofillHints="" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/bottomDecoration"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/translucent_gradient_bottomup"
-        app:layout_constraintTop_toBottomOf="@+id/pdf_edit_text"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

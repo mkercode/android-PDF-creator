@@ -30,11 +30,14 @@ public class FileView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_view);
         //create the toolbar view from the toolbar in the xml
-        Toolbar myToolbar = findViewById(R.id.search_toolbar);
-        setSupportActionBar(myToolbar);
-
+        showSearchBar();
         createRows();
         buildRecyclerView();
+    }
+
+    private void showSearchBar() {
+        Toolbar myToolbar = findViewById(R.id.search_toolbar);
+        setSupportActionBar(myToolbar);
     }
 
     public void createRows(){
@@ -42,7 +45,6 @@ public class FileView extends AppCompatActivity {
         File file = new File(getExternalFilesDir("PDF_files").toString());
         files = file.listFiles();
         Arrays.sort(files, Collections.reverseOrder());
-
         //Populate RowItem Arraylist with the file names and paths
         rowItem = new ArrayList<>();
         for (int i = 0; i < files.length; i++) {
@@ -84,7 +86,6 @@ public class FileView extends AppCompatActivity {
         //This code works fine without searchview:
 //        rowItem.remove(position);
 //        fileAdapter.notifyDataSetChanged();
-
         //MESSY - will optimize. Right now we are recreating the rowList from the files on the device, and passing it to the adapter
         createRows();
         fileAdapter = new RowAdapter(rowItem);

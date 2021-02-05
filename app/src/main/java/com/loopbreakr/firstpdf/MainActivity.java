@@ -8,9 +8,6 @@ import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,7 +27,10 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private EditText myEditText;
+    private Button saveButton;
+    private Button viewButton;
     private String fileName = "";
+    private String currentDate;
     private final String filePath = "PDF_files";
     private int STORAGE_PERMISSION_CODE = 1;
     private boolean isSelected;
@@ -38,40 +38,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        myEditText = findViewById(R.id.editText);
-        Button myButton = findViewById(R.id.button);
-        Button viewButton = findViewById(R.id.viewFiles);
-
         checkPermissions();
-
-        myButton.setOnClickListener(v -> {
-            //Get time and date
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd__HH:mm:ss").format(new Date());
-
-            //Append date and tinme to filename
-            fileName = "/File_Name__" + currentDate + ".pdf";
-
-            //Call the createPDF method on the user input
-            createMyPDF(myEditText.getText().toString());
-        });
-
-        viewButton.setOnClickListener((v -> {
-            myEditText.setText(getExternalFilesDir(filePath).toString());
-            File file = new File(getExternalFilesDir(filePath).toString());
-            File[] fileList = file.listFiles();
-
-            for (int i = 0; i < fileList.length; i++)
-            {
-                String name = fileList[i].getName();
-                Log.d("FILE:", fileList[i].getName() + " " + fileList[i].getAbsolutePath());
-            }
-//                Start second activity
-            Intent openFileViewer = new Intent(MainActivity.this, FileView.class);
-            startActivity(openFileViewer);
-
-        }));
+        setContentView(R.layout.activity_main);
+        findViews();
+        setListeners();
     }
 
     private void checkPermissions() {
@@ -81,6 +51,29 @@ public class MainActivity extends AppCompatActivity {
         } else {
             requestStoragePermission();
         }
+    }
+
+    private void findViews() {
+        myEditText = findViewById(R.id.editText);
+        saveButton = findViewById(R.id.button);
+        viewButton = findViewById(R.id.viewFiles);
+    }
+
+    private void setListeners() {
+        saveButton.setOnClickListener(v -> {
+            //Get time and date
+            String currentDate = new SimpleDateFormat("yyyy-MM-dd__HH:mm:ss").format(new Date());
+            //Append date and tinme to filename
+            fileName = "/File_Name__" + currentDate + ".pdf";
+            //Call the createPDF method on the user input
+            createMyPDF(myEditText.getText().toString());
+        });
+
+        viewButton.setOnClickListener((v -> {
+//                Start second activity
+            Intent openFileViewer = new Intent(MainActivity.this, FileView.class);
+            startActivity(openFileViewer);
+        }));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

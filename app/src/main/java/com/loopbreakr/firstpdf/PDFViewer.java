@@ -9,9 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-
 import com.github.barteksc.pdfviewer.PDFView;
 import java.io.File;
 
@@ -28,7 +25,7 @@ public class PDFViewer extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_view);
 
         getData();
-        showSearchBar();
+        showMenuBar();
         showPDF();
     }
 
@@ -37,11 +34,17 @@ public class PDFViewer extends AppCompatActivity {
         filePath = intent.getExtras().getString("fileData");
     }
 
-    private void showSearchBar() {
-        Toolbar searchBar = findViewById(R.id.PDFToolbar);
-        setSupportActionBar(searchBar);
+    private void showMenuBar() {
+        //find and set searchbar
+        Toolbar viewMenuBar = findViewById(R.id.PDFToolbar);
+        setSupportActionBar(viewMenuBar);
+        //clear title
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        searchBar.setNavigationOnClickListener(new View.OnClickListener() {
+        //show back button
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewMenuBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -55,7 +58,7 @@ public class PDFViewer extends AppCompatActivity {
         pdfView.fromFile(pdfFile).load();
     }
 
-    public void switchActicity(){
+    public void exitActiviity(){
         Intent openFileViewer = new Intent(PDFViewer.this, FileView.class);
         startActivity(openFileViewer);
     }
@@ -71,13 +74,20 @@ public class PDFViewer extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.editPDF) {
-            Toast.makeText(getApplicationContext(), "Search", Toast.LENGTH_LONG).show();
+            openEditor(filePath);
             return true;
-        } else if(id == R.id.deletePDF) {
+        }
+        else if(id == R.id.deletePDF) {
             pdfFile.delete();
-            switchActicity();
+            exitActiviity();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openEditor(String path) {
+        Intent intent = new Intent(this, PdfEditor.class);
+        intent.putExtra("fileData", path);
+        startActivity(intent);
     }
 }
