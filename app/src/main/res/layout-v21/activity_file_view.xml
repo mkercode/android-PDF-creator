@@ -27,6 +27,8 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:collapseIcon="@drawable/ic_backarrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:subtitleTextColor="#FFFFFF"
         app:title="Past Entries"
         app:titleTextColor="#FFFFFF" />
