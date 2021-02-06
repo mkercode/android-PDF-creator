@@ -9,10 +9,10 @@
     android:orientation="vertical"
     tools:context="com.loopbreakr.firstpdf.FileViewer.FileView">
 
-    <ImageView09
+    <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="125dp"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
         android:src="@drawable/ic_brain_reading_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

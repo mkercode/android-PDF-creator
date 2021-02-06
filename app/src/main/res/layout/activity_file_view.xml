@@ -14,10 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
-        android:elevation="4dp"
         android:editTextColor="@android:color/white"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
         app:collapseIcon="@drawable/ic_backarrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:subtitleTextColor="#FFFFFF"
         app:title="Past Entries"
         app:titleTextColor="#FFFFFF" />
@@ -25,7 +28,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_brain_reading_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

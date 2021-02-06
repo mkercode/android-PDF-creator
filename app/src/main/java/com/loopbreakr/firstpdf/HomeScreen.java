@@ -75,6 +75,7 @@ public class HomeScreen extends AppCompatActivity {
 //                Start second activity
             Intent openFileViewer = new Intent(HomeScreen.this, FileView.class);
             startActivity(openFileViewer);
+            finish();
         }));
     }
 
