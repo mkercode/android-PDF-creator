@@ -92,8 +92,7 @@ public class FileView extends AppCompatActivity {
 //        fileAdapter.notifyDataSetChanged();
         //MESSY - will optimize. Right now we are recreating the rowList from the files on the device, and passing it to the adapter
         createRows();
-        fileAdapter = new RowAdapter(rowItem);
-        fileRecyclerView.setAdapter(fileAdapter);
+        buildRecyclerView();
 
         searchBar.collapseActionView();
     }
