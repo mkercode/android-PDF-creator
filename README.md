@@ -19,7 +19,11 @@ storage>emulated>Android>data>**app package name**>Files>PDF_files
 - Added PDF viewer from barteksc, the application can view PDF files created in a seperate activity
 - Visual changes
 
+02/05/2021 Changes:
+-Added editor functionality (thanks to the PDF text parser by iText)
+-Added toolbars
+-Visual changes and cute icons
+
 Future changes will involve:
--Ability to edit PDF (or rather, create a new file with the parsed text from the PDF with the same name) with itext
 -Fragments instead of seperate activities
 -Modern functionality changes such as view binding and naviagational component
