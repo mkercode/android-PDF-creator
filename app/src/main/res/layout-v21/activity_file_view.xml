@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_gradient"
-    android:editTextColor="@android:color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.loopbreakr.firstpdf.FileViewer.FileView">
 
-    <ImageView
+    <ImageView09
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="125dp"
@@ -21,11 +20,12 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/search_toolbar"
+        android:editTextColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
         app:collapseIcon="@drawable/ic_backarrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
