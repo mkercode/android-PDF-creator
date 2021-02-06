@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="150dp"
+        android:layout_height="125dp"
         android:src="@drawable/ic_brain_reading_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,13 +29,14 @@
         app:collapseIcon="@drawable/ic_backarrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:subtitleTextColor="#FFFFFF"
         app:title="Past Entries"
         app:titleTextColor="#FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="419dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:background="@drawable/green_gradient"
