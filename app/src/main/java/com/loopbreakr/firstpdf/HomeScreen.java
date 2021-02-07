@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
+import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
@@ -19,10 +19,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.loopbreakr.firstpdf.FileViewer.FileView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,6 +52,8 @@ public class HomeScreen extends AppCompatActivity {
     private final String filePath = "PDF_files";
     private int STORAGE_PERMISSION_CODE = 1;
     private boolean isSelected;
+
+    private BaseFont bfBold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +86,13 @@ public class HomeScreen extends AppCompatActivity {
             //Append date and tinme to filename
             fileName = "/File_Name__" + currentDate + ".pdf";
             //Call the createPDF method on the user input
-            createMyPDF(myEditText.getText().toString());
+            try {
+                createMyPDF(myEditText.getText().toString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
         });
 
         viewButton.setOnClickListener((v -> {
@@ -80,39 +104,32 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void createMyPDF(String myString){
-
-        //Create the pdf page
-        PdfDocument myPdfDocument = new PdfDocument();
-        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(300,600,1).create();
-        PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
-        Paint myPaint = new Paint();
-
-        //Initialize top and left margin for text
-        int x = 10, y=25;
-
-        //Paint the string to the page
-        for (String line:myString.split("\n")){
-            myPage.getCanvas().drawText(line, x, y, myPaint);
-            y+=myPaint.descent()-myPaint.ascent();
-        }
-
-        //Finish writing/painting on the page
-        myPdfDocument.finishPage(myPage);
+    public void createMyPDF(String myString) throws FileNotFoundException, DocumentException {
 
         //Initialize the file with the name and path
-        File myExternalFile = new File(getExternalFilesDir(filePath), fileName);
-        try {
-            myPdfDocument.writeTo(new FileOutputStream(myExternalFile));
-            Toast.makeText(HomeScreen.this,"File saved!", Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e){
-            //If file is not saved, print stack trace, clear edittext, and display toast message
-            e.printStackTrace();
-            myEditText.setText("");
-            Toast.makeText(HomeScreen.this,"File not saved... Possible permissions error", Toast.LENGTH_SHORT).show();
-        }
-        myPdfDocument.close();
+        File pdfFile = new File(getExternalFilesDir(filePath), fileName);
+        OutputStream output = new FileOutputStream(pdfFile);
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document, output);
+        document.open();
+
+        //set fonts
+        Font titleFont = new Font(Font.FontFamily.HELVETICA, 30.0f, Font.NORMAL, BaseColor.BLACK);
+        Font regularFont = new Font(Font.FontFamily.HELVETICA, 20.0f, Font.NORMAL, BaseColor.DARK_GRAY);
+        Font questionFont = new Font(Font.FontFamily.HELVETICA, 20.0f, Font.UNDERLINE, BaseColor.DARK_GRAY);
+        Font seperatorFont = new Font(Font.FontFamily.HELVETICA, 20.0f, Font.NORMAL, BaseColor.WHITE);
+
+        document.add(new Paragraph("This is your input:", titleFont));
+        document.add(new Paragraph("///n", seperatorFont));
+        document.add(new Paragraph("What is your input?",questionFont));
+        document.add(new Paragraph("///n", seperatorFont));
+        document.add(new Paragraph(myString, regularFont));
+        document.add(new Paragraph("///n", seperatorFont));
+        document.add(new Paragraph("Thanks! This was made possible with Itext and Barteksc", regularFont));
+
+        document.close();
+
+        Toast.makeText(HomeScreen.this,"File saved!", Toast.LENGTH_SHORT).show();
     }
 
     private void requestStoragePermission() {
@@ -152,4 +169,17 @@ public class HomeScreen extends AppCompatActivity {
             }
         }
     }
+
+    //ITEXT IMPLEMENTATION
+    private void initializeFonts(){
+        try {
+            bfBold = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
